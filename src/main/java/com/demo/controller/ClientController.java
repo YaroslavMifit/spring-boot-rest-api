@@ -1,0 +1,56 @@
+package com.demo.controller;
+
+import com.demo.model.Client;
+import com.demo.service.serviceImpl.ClientServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
+
+@RestController
+@RequestMapping("/clients")
+public class ClientController {
+
+    @Autowired
+    private ClientServiceImpl clientService;
+
+    // вывод всех клиентов
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Collection<Client>> getClients() {
+        return new ResponseEntity<>(clientService.getAll(), HttpStatus.OK);
+    }
+
+    // вывод клиента по id
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Client> getClient(@PathVariable long id) {
+        Client client = clientService.getByID(id);
+
+        if (client != null) {
+            return new ResponseEntity<>(clientService.getByID(id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>((Client) null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // добавление клиента
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public ResponseEntity<?> addClient(@RequestBody Client client) {
+        return new ResponseEntity<>(clientService.save(client), HttpStatus.CREATED);
+    }
+
+    // обновление клиента
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity<?> updateClient(@RequestBody Client client) {
+        return new ResponseEntity<>(clientService.update(client), HttpStatus.UPGRADE_REQUIRED);
+    }
+
+    // удаление клиента по id
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteClient(@PathVariable long id) {
+        clientService.remove(id);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+}
