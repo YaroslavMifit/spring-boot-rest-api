@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 
 @RestController
 @RequestMapping("/banks")
 public class BankController {
+
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     private BankServiceImpl bankService;
@@ -31,6 +34,7 @@ public class BankController {
         if (bank != null) {
             return new ResponseEntity<>(bankService.getByID(id), HttpStatus.OK);
         } else {
+            logger.severe("BankId " + id + " is not existed");
             return new ResponseEntity<>((Bank) null, HttpStatus.NOT_FOUND);
         }
     }
@@ -50,6 +54,7 @@ public class BankController {
     // удаление банка по id
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteBank(@PathVariable long id) {
+
         bankService.remove(id);
 
         return new ResponseEntity<Void>(HttpStatus.OK);

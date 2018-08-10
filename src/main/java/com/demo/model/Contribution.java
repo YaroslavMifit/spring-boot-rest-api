@@ -23,7 +23,7 @@ public class Contribution {
     private Bank bank;
 
     @Column(name = "open_date")
-    @JsonFormat(pattern = "YYYY-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date openDate;
 
     @Column(name = "percent")

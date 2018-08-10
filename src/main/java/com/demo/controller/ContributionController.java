@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 
 @RestController
 @RequestMapping("/contributions")
 public class ContributionController {
+
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     private ContributionServiceImpl contributionService;
@@ -32,6 +35,7 @@ public class ContributionController {
         if (contribution != null) {
             return new ResponseEntity<>(contributionService.getByID(id), HttpStatus.OK);
         } else {
+            logger.severe("ContributionId " + id + " is not existed");
             return new ResponseEntity<>((Contribution) null, HttpStatus.NOT_FOUND);
         }
     }

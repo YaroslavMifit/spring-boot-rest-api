@@ -8,10 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
+
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     private ClientServiceImpl clientService;
@@ -30,6 +33,7 @@ public class ClientController {
         if (client != null) {
             return new ResponseEntity<>(clientService.getByID(id), HttpStatus.OK);
         } else {
+            logger.severe("ClientId " + id + " is not existed");
             return new ResponseEntity<>((Client) null, HttpStatus.NOT_FOUND);
         }
     }
