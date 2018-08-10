@@ -53,8 +53,15 @@ public class ClientController {
     // удаление клиента по id
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteClient(@PathVariable long id) {
-        clientService.remove(id);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        Client client = clientService.getByID(id);
+
+        if (client != null) {
+            clientService.remove(id);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } else {
+            logger.severe("Did not delete the object. ClientId " + id + " is not existed");
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
     }
 }

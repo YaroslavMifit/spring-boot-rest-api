@@ -55,8 +55,15 @@ public class BankController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteBank(@PathVariable long id) {
 
-        bankService.remove(id);
+        Bank bank = bankService.getByID(id);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        if (bank != null) {
+            bankService.remove(id);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } else {
+            logger.severe("Did not delete the object. BankId " + id + " is not existed");
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+
     }
 }

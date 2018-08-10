@@ -55,9 +55,16 @@ public class ContributionController {
     // удаление вклада по id
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteContribution(@PathVariable long id) {
-        contributionService.remove(id);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        Contribution contribution = contributionService.getByID(id);
+
+        if (contribution != null) {
+            contributionService.remove(id);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } else {
+            logger.severe("Did not delete the object. ContributionId " + id + " is not existed");
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
