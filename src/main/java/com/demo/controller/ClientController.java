@@ -1,8 +1,11 @@
 package com.demo.controller;
 
 import com.demo.model.Client;
+import com.demo.repository.specification.ClientSpecification;
 import com.demo.service.serviceImpl.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +24,8 @@ public class ClientController {
 
     // вывод всех клиентов
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<Client>> getClients() {
-        return new ResponseEntity<>(clientService.getAll(), HttpStatus.OK);
+    public ResponseEntity<Collection<Client>> getClients(@ModelAttribute Client client, @SortDefault(sort = "id") Sort sort) {
+        return new ResponseEntity<>(clientService.getAll(new ClientSpecification(client), sort), HttpStatus.OK);
     }
 
     // вывод клиента по id

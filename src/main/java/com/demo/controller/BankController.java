@@ -1,8 +1,12 @@
 package com.demo.controller;
 
 import com.demo.model.Bank;
+import com.demo.repository.specification.BankSpecification;
 import com.demo.service.serviceImpl.BankServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +26,8 @@ public class BankController {
 
     // вывод всех банков
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<Bank>> getBanks() {
-        return new ResponseEntity<>(bankService.getAll(), HttpStatus.OK);
+    public ResponseEntity<Collection<Bank>> getBanks(@ModelAttribute Bank bank, @SortDefault(sort = "id") Sort sort) {
+        return new ResponseEntity<>(bankService.getAll(new BankSpecification(bank), sort), HttpStatus.OK);
     }
 
     // вывод банкa по id

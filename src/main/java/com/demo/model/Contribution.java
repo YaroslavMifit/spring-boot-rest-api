@@ -1,18 +1,22 @@
 package com.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "contributions")
 public class Contribution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn (name="client_id")
@@ -27,56 +31,8 @@ public class Contribution {
     private Date openDate;
 
     @Column(name = "percent")
-    private double percent;
+    private Double percent;
 
     @Column(name = "term_in_months")
-    private int termInMonths;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-
-    public Date getOpenDate() {
-        return openDate;
-    }
-
-    public void setOpenDate(Date openDate) {
-        this.openDate = openDate;
-    }
-
-    public double getPercent() {
-        return percent;
-    }
-
-    public void setPercent(double percent) {
-        this.percent = percent;
-    }
-
-    public int getTermInMonths() {
-        return termInMonths;
-    }
-
-    public void setTermInMonths(int termInMonths) {
-        this.termInMonths = termInMonths;
-    }
+    private Integer termInMonths;
 }

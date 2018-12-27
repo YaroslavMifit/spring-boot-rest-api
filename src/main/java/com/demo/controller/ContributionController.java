@@ -1,8 +1,11 @@
 package com.demo.controller;
 
 import com.demo.model.Contribution;
+import com.demo.repository.specification.ContributionSpecification;
 import com.demo.service.serviceImpl.ContributionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +25,8 @@ public class ContributionController {
 
     // вывод всех вкладов
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<Contribution>> getContributions() {
-
-        return new ResponseEntity<>(contributionService.getAll(), HttpStatus.OK);
+    public ResponseEntity<Collection<Contribution>> getContributions(@ModelAttribute Contribution contribution, @SortDefault(sort = "id") Sort sort) {
+        return new ResponseEntity<>(contributionService.getAll(new ContributionSpecification(contribution), sort), HttpStatus.OK);
     }
 
     // вывод вклада по id

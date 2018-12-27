@@ -3,7 +3,7 @@ INSERT INTO clients (id, name, short_name, address, legal_organization_form) VAL
 	(2, 'Иванов Иван Иванович', 'Иванов И.И.', 'Пушкина д.19 кв.211', 'ВТОРАЯ'),
 	(3, 'Луков Максим Леонидович', 'Луков М.Л.', 'Гагарина д.50 кв.120', 'ТРЕТЬЯ');
 
-INSERT INTO banks (id, name, BIK) VALUES
+INSERT INTO banks (id, name, bik) VALUES
 	(1, 'ВТБ-24', 256546456456),
 	(2, 'Сбербанк', 306346346346),
 	(3, 'Восточный', 18545345345);

@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import com.demo.Application;
 import com.demo.model.Bank;
+import com.demo.repository.specification.BankSpecification;
 import com.demo.service.BankService;
 import com.google.common.collect.ImmutableList;
 import org.junit.Test;
@@ -9,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -43,7 +46,7 @@ public class BankControllerIT {
 
         Collection<Bank> actualList = responseEntity.getBody();
         //validate
-        assertThat(actualList.size(), is(controller.getAll().size()));
+        assertThat(actualList.size(), is(controller.getAll(new BankSpecification(new Bank()),new Sort("id")).size()));
 
         List<Long> actualIds = actualList.stream()
                 .map(bank -> bank.getId())

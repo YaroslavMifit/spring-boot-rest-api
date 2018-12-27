@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import com.demo.Application;
 import com.demo.model.Contribution;
+import com.demo.repository.specification.ContributionSpecification;
 import com.demo.service.ContributionService;
 import com.google.common.collect.ImmutableList;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -42,7 +44,7 @@ public class ContributionControllerIT {
 
         Collection<Contribution> actualList = responseEntity.getBody();
         //validate
-        assertThat(actualList.size(), is(controller.getAll().size()));
+        assertThat(actualList.size(), is(controller.getAll(new ContributionSpecification(new Contribution()),new Sort("id")).size()));
 
         List<Long> actualIds = actualList.stream()
                 .map(contribution -> contribution.getId())

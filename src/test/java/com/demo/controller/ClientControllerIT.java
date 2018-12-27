@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import com.demo.Application;
 import com.demo.model.Client;
+import com.demo.repository.specification.ClientSpecification;
 import com.demo.service.ClientService;
 import com.google.common.collect.ImmutableList;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -41,7 +43,7 @@ public class ClientControllerIT {
 
         Collection<Client> actualList = responseEntity.getBody();
         //validate
-        assertThat(actualList.size(), is(controller.getAll().size()));
+        assertThat(actualList.size(), is(controller.getAll(new ClientSpecification(new Client()),new Sort("id")).size()));
 
         List<Long> actualIds = actualList.stream()
                 .map(client -> client.getId())
