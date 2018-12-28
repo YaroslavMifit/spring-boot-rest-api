@@ -35,7 +35,7 @@ public class ClientSpecification implements Specification<Client> {
             predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("address")), "%" + client.getAddress() + "%".toUpperCase()));
         }
         if (client.getLegalOrganizationForm() != null) {
-            predicate.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("legalOrganizationForm")), "%" + client.getLegalOrganizationForm() + "%".toUpperCase()));
+            predicate.add(criteriaBuilder.equal(root.get("legalOrganizationForm"), client.getLegalOrganizationForm()));
         }
 
         return criteriaBuilder.and(predicate.toArray(new Predicate[predicate.size()]));

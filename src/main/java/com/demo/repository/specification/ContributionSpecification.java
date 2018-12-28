@@ -1,6 +1,7 @@
 package com.demo.repository.specification;
 
 import com.demo.model.Contribution;
+import com.demo.util.DateSearchUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -40,7 +41,7 @@ public class ContributionSpecification implements Specification<Contribution> {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("client").get("address")), "%" + contribution.getClient().getAddress() + "%".toUpperCase()));
             }
             if (contribution.getClient().getLegalOrganizationForm() != null) {
-                predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("client").get("legalOrganizationForm")), "%" + contribution.getClient().getLegalOrganizationForm() + "%".toUpperCase()));
+                predicates.add(criteriaBuilder.equal(root.get("client").get("legalOrganizationForm"), contribution.getClient().getLegalOrganizationForm()));
             }
         }
         if (contribution.getBank() != null) {
@@ -56,13 +57,14 @@ public class ContributionSpecification implements Specification<Contribution> {
             }
         }
         if (contribution.getOpenDate() != null) {
-            predicates.add(criteriaBuilder.like(criteriaBuilder.upper(criteriaBuilder.function("CONCAT", String.class, root.get("openDate"))), "%" + contribution.getPercent() + "%".toUpperCase()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("openDate"), contribution.getOpenDate()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("openDate"), DateSearchUtils.atEndOfDay(contribution.getOpenDate())));
         }
         if (contribution.getPercent() != null) {
-            predicates.add(criteriaBuilder.like(criteriaBuilder.upper(criteriaBuilder.function("CONCAT", String.class, root.get("percent"))), "%" + contribution.getPercent() + "%".toUpperCase()));
+            predicates.add(criteriaBuilder.equal(root.get("percent"), contribution.getPercent()));
         }
         if (contribution.getTermInMonths() != null) {
-            predicates.add(criteriaBuilder.like(criteriaBuilder.upper(criteriaBuilder.function("CONCAT", String.class, root.get("termInMonths"))), "%" + contribution.getTermInMonths() + "%".toUpperCase()));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.function("CONCAT", String.class, root.get("termInMonths")), "%" + contribution.getTermInMonths() + "%"));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
