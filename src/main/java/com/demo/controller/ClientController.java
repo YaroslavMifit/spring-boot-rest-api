@@ -25,7 +25,7 @@ public class ClientController {
     // вывод всех клиентов
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Client>> getClients(@ModelAttribute Client client, @SortDefault(sort = "id") Sort sort) {
-        return new ResponseEntity<>(clientService.getAll(new ClientSpecification(client), sort), HttpStatus.OK);
+        return new ResponseEntity<>(clientService.getAll(client, sort), HttpStatus.OK);
     }
 
     // вывод клиента по id

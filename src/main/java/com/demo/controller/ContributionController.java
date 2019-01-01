@@ -26,7 +26,7 @@ public class ContributionController {
     // вывод всех вкладов
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Contribution>> getContributions(@ModelAttribute Contribution contribution, @SortDefault(sort = "id") Sort sort) {
-        return new ResponseEntity<>(contributionService.getAll(new ContributionSpecification(contribution), sort), HttpStatus.OK);
+        return new ResponseEntity<>(contributionService.getAll(contribution, sort), HttpStatus.OK);
     }
 
     // вывод вклада по id

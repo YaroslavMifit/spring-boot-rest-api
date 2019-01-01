@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ContributionService {
 
-    List<Contribution> getAll(Specification<Contribution> specification, Sort sort);
+    List<Contribution> getAll(Contribution contribution, Sort sort);
     Contribution getByID(long id);
     Contribution save(Contribution contribution);
     Contribution update(Contribution contribution);

@@ -1,6 +1,7 @@
 package com.demo.service.serviceImpl;
 
 import com.demo.repository.ClientRepository;
+import com.demo.repository.specification.ClientSpecification;
 import com.demo.service.ClientService;
 import com.demo.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     @Override
-    public List<Client> getAll(Specification<Client> specification, Sort sort) {
-        return clientRepository.findAll(specification, sort);
+    public List<Client> getAll(Client client, Sort sort) {
+        return clientRepository.findAll(new ClientSpecification(client), sort);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class BankControllerIT {
 
         Collection<Bank> actualList = responseEntity.getBody();
         //validate
-        assertThat(actualList.size(), is(controller.getAll(new BankSpecification(new Bank()),new Sort("id")).size()));
+        assertThat(actualList.size(), is(controller.getAll(new Bank(),new Sort("id")).size()));
 
         List<Long> actualIds = actualList.stream()
                 .map(bank -> bank.getId())

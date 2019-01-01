@@ -44,7 +44,7 @@ public class ContributionControllerIT {
 
         Collection<Contribution> actualList = responseEntity.getBody();
         //validate
-        assertThat(actualList.size(), is(controller.getAll(new ContributionSpecification(new Contribution()),new Sort("id")).size()));
+        assertThat(actualList.size(), is(controller.getAll(new Contribution(),new Sort("id")).size()));
 
         List<Long> actualIds = actualList.stream()
                 .map(contribution -> contribution.getId())

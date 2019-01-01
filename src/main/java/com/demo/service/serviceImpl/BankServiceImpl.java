@@ -1,6 +1,7 @@
 package com.demo.service.serviceImpl;
 
 import com.demo.repository.BankRepository;
+import com.demo.repository.specification.BankSpecification;
 import com.demo.service.BankService;
 import com.demo.model.Bank;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,9 @@ public class BankServiceImpl implements BankService {
     private BankRepository bankRepository;
 
     @Override
-    public List<Bank> getAll(Specification<Bank> specification, Sort sort) {
-        return bankRepository.findAll(specification, sort);
+    public List<Bank> getAll(Bank bank, Sort sort) {
+
+        return bankRepository.findAll(new BankSpecification(bank), sort);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ClientService {
 
-    List<Client> getAll(Specification<Client> specification, Sort sort);
+    List<Client> getAll(Client client, Sort sort);
     Client getByID(long id);
     Client save(Client client);
     Client update(Client client);

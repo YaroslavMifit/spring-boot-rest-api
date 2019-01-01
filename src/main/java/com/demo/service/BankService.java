@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BankService {
 
-    List<Bank> getAll(Specification<Bank> specification, Sort sort);
+    List<Bank> getAll(Bank bank, Sort sort);
     Bank getByID(long id);
     Bank save(Bank bank);
     Bank update(Bank bank);

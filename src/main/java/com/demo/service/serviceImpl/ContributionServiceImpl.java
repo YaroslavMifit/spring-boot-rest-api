@@ -1,6 +1,7 @@
 package com.demo.service.serviceImpl;
 
 import com.demo.repository.ContributionRepository;
+import com.demo.repository.specification.ContributionSpecification;
 import com.demo.service.ContributionService;
 import com.demo.model.Contribution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class ContributionServiceImpl implements ContributionService {
     private ContributionRepository contributionRepository;
 
     @Override
-    public List<Contribution> getAll(Specification<Contribution> specification, Sort sort) {
-        return contributionRepository.findAll(specification, sort);
+    public List<Contribution> getAll(Contribution contribution, Sort sort) {
+        return contributionRepository.findAll(new ContributionSpecification(contribution), sort);
     }
 
     @Override

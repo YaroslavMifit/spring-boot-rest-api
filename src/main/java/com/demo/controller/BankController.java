@@ -27,7 +27,7 @@ public class BankController {
     // вывод всех банков
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<Bank>> getBanks(@ModelAttribute Bank bank, @SortDefault(sort = "id") Sort sort) {
-        return new ResponseEntity<>(bankService.getAll(new BankSpecification(bank), sort), HttpStatus.OK);
+        return new ResponseEntity<>(bankService.getAll(bank, sort), HttpStatus.OK);
     }
 
     // вывод банкa по id

@@ -43,7 +43,7 @@ public class ClientControllerIT {
 
         Collection<Client> actualList = responseEntity.getBody();
         //validate
-        assertThat(actualList.size(), is(controller.getAll(new ClientSpecification(new Client()),new Sort("id")).size()));
+        assertThat(actualList.size(), is(controller.getAll(new Client(),new Sort("id")).size()));
 
         List<Long> actualIds = actualList.stream()
                 .map(client -> client.getId())
