@@ -5,8 +5,8 @@
 spring.datasource.url=jdbc:mysql://localhost:3306/one
 
 #Username and password
-spring.datasource.username=root
-spring.datasource.password=genius7783
+spring.datasource.username=Username
+spring.datasource.password=password
 
 # Ветка master собирает jar file 
 #Далее в консоли для сборки исходника необходимо ввести команду
